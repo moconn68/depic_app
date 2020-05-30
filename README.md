@@ -21,6 +21,38 @@ For developers/contributors, this section will describe how to get your developm
 3. Create a file named `config.js` in the project root. In this file, put all necessary API keys as demonstrated by the [`config_template.js`](config_template.js) file in this repository
 4. Use `npm start` or `expo start` to start Depic on your local machine. It's that easy!
 
+## Project Structure
+
+The following is the project directory structure. Only key logic and application-specific directories are enumerated. Feel free to explore the project yourself to gain better familiarity with how the codebase is set up.
+```
+.
+├── App.js
+├── app.json
+├── assets
+|   ├── art
+|   |    └── Art assets for the app, eg. button icons
+|   ├── icon.png
+|   └── splash.png
+├── babel.config.js
+├── config.js
+├── config_template.js
+├── links.md
+├── node_modules
+├── out.txt
+├── package.json
+├── package-lock.json
+├── README.md
+└── src
+    ├── common
+    │   ├── assets.js
+    │   └── styles.js
+    ├── navigation
+    │   └── HomeStackNavigator.js
+    └── screens
+        └── Screen components go here
+```
+
+
 ## Built With
 
 + React Native
