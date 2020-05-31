@@ -9,7 +9,7 @@ import {
     View,
     Text,
     TouchableOpacity,
-    FlatList,
+    Alert,
     TextInput,
     ImageBackground,
     Image,
@@ -21,6 +21,7 @@ import {
     img_home,
     img_scorebg,
 } from '../common/assets';
+import FoundGrid from '../components/FoundGrid';
 
  export default class ScoreEntryScreen extends Component
  {
@@ -41,17 +42,16 @@ import {
                             "Are you sure you want to exit?",
                             "If you quit now, your score will not be saved!",
                             [
-                            {
-                                text: "Yes",
-                                onPress: async () => {
-                                await AsyncStorage.removeItem("SAVEGAME");
-                                this.props.navigation.navigate("Home");
+                                {
+                                    text: "Yes",
+                                    onPress: async () => {
+                                    await AsyncStorage.removeItem("SAVEGAME");
+                                    this.props.navigation.navigate("Home");
+                                    },
                                 },
-                            },
-                            {
-                                text: "No",
-                                onPress: () => console.log("no pressed"),
-                            },
+                                {
+                                    text: "No",
+                                },
                             ],
             
                         );
@@ -128,11 +128,7 @@ import {
                   }
                 />
                 <Text style={styles.entryText}>Here are the items you found this game:</Text>
-                <FlatList
-                  data={this.props.route.params.foundList}
-                  renderItem={ ({ item, index }) => <Text style={styles.scoreRow}>{item.letter.toUpperCase()}{'\t\t\t\t'}{item.word}</Text> }
-                  keyExtractor={item => item.letter}
-                />
+                <FoundGrid pairings={this.props.route.params.foundList} />
               </ImageBackground>
             </View>
           );

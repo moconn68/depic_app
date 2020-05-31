@@ -54,7 +54,6 @@
             const highScores = await AsyncStorage.getItem('SCORES');
             if (highScores != null){
                 this.setState({scores: JSON.parse(highScores)});
-                console.log("DEBUG: Retrieval successful.");
             } else {
             console.log("DEBUG: Retrieval successful but null.");
             }

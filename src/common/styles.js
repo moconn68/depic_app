@@ -197,7 +197,17 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       marginBottom: 10,
       fontFamily:'Arial Rounded MT Bold',
-    }
+    },
+    foundGridFlatList: {
+      flexDirection: 'column',
+    },
+    foundLettersActive: {
+      marginBottom: 10,
+    },
+    foundLettersInactive: {
+      tintColor: 'gray',
+      marginBottom: 10,
+    },
   });
 
   export default styles;
