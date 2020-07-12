@@ -65,7 +65,7 @@ export default class FoundGrid extends Component
         const alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
         return(
             <View style={{flex: 1, justifyContent: "space-evenly"}}
-                onLayout={(event) => 
+                onLayout={(event) =>
                     {
                         // Gets dimensions of the component for the case of different sized displays
                         const {x, y, width, height} = event.nativeEvent.layout;
@@ -103,7 +103,7 @@ export default class FoundGrid extends Component
                                       />
                     }
                     keyExtractor={item => item}
-                    
+
                 />
             </View>
         );
@@ -153,3 +153,4 @@ class FoundGridItem extends Component
         );
     }
 }
+~                
