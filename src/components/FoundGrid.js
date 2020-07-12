@@ -64,7 +64,7 @@ export default class FoundGrid extends Component
     {
         const alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
         return(
-            <View style={{flex: 1}}
+            <View style={{flex: 1, justifyContent: "space-evenly"}}
                 onLayout={(event) => 
                     {
                         // Gets dimensions of the component for the case of different sized displays
@@ -141,8 +141,10 @@ class FoundGridItem extends Component
                         [
                             (this.props.letterFound ? styles.foundLettersActive : styles.foundLettersInactive),
                             {
+
                                 width: Math.round(this.props.viewDimensions.width / 5),
                                 height: Math.round(this.props.viewDimensions.height / 7),
+
                             },
                         ]
                     }
