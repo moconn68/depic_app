@@ -11,6 +11,10 @@ import {
     ImageBackground,
     Image,
     TouchableOpacity,
+
+
+    Button,
+    Text,
 } from 'react-native';
 // Custom imports
 import styles from '../common/styles';
@@ -21,9 +25,19 @@ import {
     img_scores,
     img_rules,
  } from '../common/assets';
+ // Modal test
+ import PopUpModalTemplate from '../components/PopUpModalTemplate';
+ import IncorrectModal from '../components/IncorrectModal';
 
 export default class HomeScreen extends Component
 {
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            testModalVisible: false,
+        }
+    }
     componentDidMount()
     {
         this.props.navigation.setOptions
@@ -54,6 +68,11 @@ export default class HomeScreen extends Component
                             >
                             <Image source={img_scores} style={styles.scoresButton} />
                         </TouchableOpacity>
+                        <Button title="Modal Test" onPress={() => this.setState({testModalVisible: true})}/>
+                        <PopUpModalTemplate
+                            visible={this.state.testModalVisible}
+                            modalContent={<IncorrectModal/>}
+                        />
                     </View>
                 </ImageBackground>
 		    </View>

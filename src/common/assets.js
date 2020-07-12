@@ -8,8 +8,11 @@ export const img_skip = require('../../assets/art/skip_icon.png');
 export const img_flip = require('../../assets/art/flip_camera.png');
 export const img_take_pic = require('../../assets/art/take_pic_icon.png');
 export const img_home = require('../../assets/art/home_icon.png');
-export const img_scorebg = require('../../assets/art/scoreboard_bg.png')
-export const img_highestScorebg = require('../../assets/art/highestscoreboard_bg.png')
+export const img_scorebg = require('../../assets/art/scoreboard_bg.png');
+export const img_highestScorebg = require('../../assets/art/highestscoreboard_bg.png');
+// Modal images
+export const img_cancelButton = require('../../assets/art/modals/modal_cancel.png');
+export const img_incorrectModal = require('../../assets/art/modals/modal_tryagain.png');
 // Assets re. letters of the alphabet
 var letterPath  = '../../assets/art/letters/';
 export const img_letters = {
