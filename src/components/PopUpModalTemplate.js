@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import {
     Modal,
     View,
+    Image,
+    TouchableOpacity,
 } from 'react-native';
 // Custom Imports
 import styles from '../common/styles';
+import {
+    img_incorrectModal,
+    img_cancelModal,
+    img_confirmModal,
+} from '../common/assets';
 
 export default class PopUpModalTemplate extends Component
 {
@@ -14,12 +21,16 @@ export default class PopUpModalTemplate extends Component
         /** Props:
          * ?visible: boolean - is the modal visible?
          * modalContent: actual content of the modal
-         * 
-         * not sure about the below:
-         * ?exitButton: boolean - should there be an exit button?
-         * ?confirmButton: boolean - should there be a confirm button?
+         * onClose: method called when close button pressed
+         * onConfirm: method called when confirm button pressed
          */
+
+        // this.onClose = this.onClose.bind(this);
     }
+
+    // onClose()
+    // {
+    // }
 
     render()
     {
@@ -32,6 +43,25 @@ export default class PopUpModalTemplate extends Component
                 <View style={styles.popUpModalOuter}>
                     <View>
                         {this.props.modalContent}
+                        {this.props.onClose ? 
+                            <TouchableOpacity
+                                style={{position: "absolute", width: 50, height: 50, right: -25, top: -25}}
+                                onPress={this.props.onClose}
+                            >
+                                <Image source={img_cancelModal} style={{position: "absolute", width: 50, height: 50}} />
+                            </TouchableOpacity> 
+                             : null    
+                        }
+                        {this.props.onConfirm ? 
+                            <TouchableOpacity
+                                style={{position: "absolute", width: 50, height: 50, left: -25, top: -25}}
+                                onPress={this.props.onConfirm}
+                            >
+                                <Image source={img_confirmModal} style={{position: "absolute", width: 50, height: 50}} />
+                            </TouchableOpacity>
+                            : null
+                        }
+
                     </View>
                 </View>
             </Modal>

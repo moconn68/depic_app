@@ -15,6 +15,7 @@ import {
 
     Button,
     Text,
+    Alert,
 } from 'react-native';
 // Custom imports
 import styles from '../common/styles';
@@ -37,6 +38,7 @@ export default class HomeScreen extends Component
         this.state = {
             testModalVisible: false,
         }
+        this.onIncorrectModalClose = this.onIncorrectModalClose.bind(this);
     }
     componentDidMount()
     {
@@ -44,6 +46,13 @@ export default class HomeScreen extends Component
         ({
             headerShown: false,
         });
+    }
+
+    onIncorrectModalClose()
+    {
+        this.setState({
+            testModalVisible: false,
+        })
     }
 
     render()
@@ -68,9 +77,24 @@ export default class HomeScreen extends Component
                             >
                             <Image source={img_scores} style={styles.scoresButton} />
                         </TouchableOpacity>
-                        <Button title="Modal Test" onPress={() => this.setState({testModalVisible: true})}/>
+                        <TouchableOpacity
+                            onPress={() => this.setState({testModalVisible: true})}
+                            style={{
+                                backgroundColor: 'white',
+                                borderRadius: 10,
+                                borderColor: 'black',
+                                borderWidth: 4,
+
+                            }}
+                        >
+                            <Text style={{fontSize: 28, padding: 5,}}>Modal Test</Text>
+                        </TouchableOpacity>
                         <PopUpModalTemplate
                             visible={this.state.testModalVisible}
+                            onClose={this.onIncorrectModalClose}
+                            onConfirm={() => {Alert.alert("Confirmed!");
+                                this.onIncorrectModalClose();
+                        }}
                             modalContent={<IncorrectModal/>}
                         />
                     </View>
