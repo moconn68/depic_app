@@ -11,12 +11,11 @@ import {
     ImageBackground,
     Image,
     TouchableOpacity,
-
-
     Button,
     Text,
     Alert,
 } from 'react-native';
+import Font, {loadAsync} from 'expo-font';
 // Custom imports
 import styles from '../common/styles';
 import { 
@@ -36,15 +35,24 @@ export default class HomeScreen extends Component
     {
         super(props);
         this.state = {
+            loading: true,
             testModalVisible: false,
         }
         this.onIncorrectModalClose = this.onIncorrectModalClose.bind(this);
     }
-    componentDidMount()
+    async componentDidMount()
     {
         this.props.navigation.setOptions
         ({
             headerShown: false,
+        });
+        
+        await loadAsync({
+            "Schramberg": require('../../assets/fonts/SchrambergSans.otf'),
+        });
+
+        this.setState({
+            loading: false,
         });
     }
 
@@ -57,6 +65,9 @@ export default class HomeScreen extends Component
 
     render()
     {
+        if(this.state.loading){
+            return <></>;
+        }
         return(
             <View style={styles.container} >
                 <ImageBackground  defaultSource={img_background}  style={{width:'100%', height:'100%'}}>
