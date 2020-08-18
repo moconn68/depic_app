@@ -25,9 +25,6 @@ import {
     img_scores,
     img_rules,
  } from '../common/assets';
- // Modal test
- import PopUpModalTemplate from '../components/PopUpModalTemplate';
- import IncorrectModal from '../components/IncorrectModal';
 
 export default class HomeScreen extends Component
 {
@@ -36,9 +33,7 @@ export default class HomeScreen extends Component
         super(props);
         this.state = {
             loading: true,
-            testModalVisible: false,
         }
-        this.onIncorrectModalClose = this.onIncorrectModalClose.bind(this);
     }
     async componentDidMount()
     {
@@ -54,13 +49,6 @@ export default class HomeScreen extends Component
         this.setState({
             loading: false,
         });
-    }
-
-    onIncorrectModalClose()
-    {
-        this.setState({
-            testModalVisible: false,
-        })
     }
 
     render()
@@ -88,26 +76,6 @@ export default class HomeScreen extends Component
                             >
                             <Image source={img_scores} style={styles.scoresButton} />
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.setState({testModalVisible: true})}
-                            style={{
-                                backgroundColor: 'white',
-                                borderRadius: 10,
-                                borderColor: 'black',
-                                borderWidth: 4,
-
-                            }}
-                        >
-                            <Text style={{fontSize: 28, padding: 5,}}>Modal Test</Text>
-                        </TouchableOpacity>
-                        <PopUpModalTemplate
-                            visible={this.state.testModalVisible}
-                            onClose={this.onIncorrectModalClose}
-                            onConfirm={() => {Alert.alert("Confirmed!");
-                                this.onIncorrectModalClose();
-                        }}
-                            modalContent={<IncorrectModal/>}
-                        />
                     </View>
                 </ImageBackground>
 		    </View>

@@ -19,6 +19,7 @@ export const img_keepPlaying = require('../../assets/art/modals/modal_keepPlayin
 export const img_saveGame = require('../../assets/art/modals/modal_saveGame.png');
 export const img_noSkips = require('../../assets/art/modals/modal_noSkips.png');
 export const img_foundWord = require('../../assets/art/modals/modal_foundWord.png');
+export const img_quitEntry = require('../../assets/art/modals/modal_quitEntry.png');
 // export const img_quitEntry = require('../../assets/art/modals/modal_quitEntry.png');
 // Assets re. letters of the alphabet
 var letterPath  = '../../assets/art/letters/';

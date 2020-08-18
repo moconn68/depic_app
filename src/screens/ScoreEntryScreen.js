@@ -9,13 +9,14 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Alert,
     TextInput,
     ImageBackground,
     Image,
     AsyncStorage,
 } from 'react-native';
 // Custom imports
+import PopUpModalTemplate from '../components/PopUpModalTemplate';
+import QuitEntryModal from '../components/QuitEntryModal';
 import styles from '../common/styles';
 import {
     img_home,
@@ -25,6 +26,32 @@ import FoundGrid from '../components/FoundGrid';
 
  export default class ScoreEntryScreen extends Component
  {
+
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            quitEntryModalVisible: false,
+        };
+        this.onQuitEntryModalClose = this.onQuitEntryModalClose.bind(this);
+        this.onQuitEntryModalConfirm = this.onQuitEntryModalConfirm.bind(this);
+        
+    }
+    onQuitEntryModalClose()
+    {
+        this.setState({
+            quitEntryModalVisible: false,
+        });
+    }
+
+    async onQuitEntryModalConfirm()
+    {
+        this.setState({
+            quitEntryModalVisible: false,
+        });
+        await AsyncStorage.removeItem("SAVEGAME");
+        this.props.navigation.navigate("Home");
+    }
     componentDidMount()
     {
         this.props.navigation.setOptions({
@@ -37,25 +64,9 @@ import FoundGrid from '../components/FoundGrid';
             headerLeft: () => (
                 <TouchableOpacity
                     onPress={
-                        () => {
-                        Alert.alert(
-                            "Are you sure you want to exit?",
-                            "If you quit now, your score will not be saved!",
-                            [
-                                {
-                                    text: "Yes",
-                                    onPress: async () => {
-                                    await AsyncStorage.removeItem("SAVEGAME");
-                                    this.props.navigation.navigate("Home");
-                                    },
-                                },
-                                {
-                                    text: "No",
-                                },
-                            ],
-            
-                        );
-                        }
+                        () => this.setState({
+                            quitEntryModalVisible: true,
+                        })
                     }
                     >
                     <Image source={img_home} style={styles.homeButton} />
@@ -115,6 +126,12 @@ import FoundGrid from '../components/FoundGrid';
         return(
             <View style={styles.entryScreen}>
               <ImageBackground defaultSource={img_scorebg} style={{width: "100%", height: "100%"}}>
+                <PopUpModalTemplate
+                    visible={this.state.quitEntryModalVisible}
+                    onClose={this.onQuitEntryModalClose}
+                    onConfirm={this.onQuitEntryModalConfirm}
+                    modalContent={<QuitEntryModal />}
+                ></PopUpModalTemplate>
                 <Text style={styles.entryText}>Your Score: {this.props.route.params.score}</Text>
                 <TextInput
                   style={styles.entryInput}
