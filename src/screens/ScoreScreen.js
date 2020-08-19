@@ -22,7 +22,6 @@
  import {
     img_home,
     img_highestScorebg,
-
  } from '../common/assets';
 
  export default class ScoreScreen extends Component

@@ -15,11 +15,12 @@
      FlatList,
      TouchableOpacity,
      Alert,
-     Dimensions,
+
  } from 'react-native';
 // Custom imports
 import styles from '../common/styles';
 import { img_letters } from '../common/assets';
+
 
 export default class FoundGrid extends Component
 {
@@ -35,6 +36,9 @@ export default class FoundGrid extends Component
      */
     constructor(props)
     {
+        /**
+         * updateSelectedPairing: function which tracks player-selected letter-word pairing for modal display
+         */
         super(props);
         this.state = {
             gridDimensions: {
@@ -42,9 +46,11 @@ export default class FoundGrid extends Component
                 y: 0,
                 width: 100,
                 height: 100,
-            }
-        }
+            },
+        };
+
     }
+
 
     wasLetterFound(letter)
     {
@@ -100,6 +106,7 @@ export default class FoundGrid extends Component
                                         }
                                         viewDimensions={this.state.gridDimensions}
                                         letterFound={this.wasLetterFound(item)}
+                                        updateSelectedPairing={this.props.updateSelectedPairing}
                                       />
                     }
                     keyExtractor={item => item}
@@ -132,7 +139,8 @@ class FoundGridItem extends Component
     {
         return(
             <TouchableOpacity
-                onPress={this.displayPairing}
+                // onPress={this.displayPairing}
+                onPress={() => this.props.updateSelectedPairing(this.props.pairing.letter.toUpperCase(), this.props.pairing.word)}
                 disabled={!this.props.letterFound}
                 >
                 <Image

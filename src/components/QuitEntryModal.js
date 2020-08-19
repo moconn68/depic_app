@@ -36,7 +36,8 @@ export default class QuitEntryModal extends Component
                     borderRadius: 20,
                     borderWidth: 4,
                     borderColor: 'black'
-                }}>
+                }}
+            >
 
                 <Image
                     source={img_quitEntry}

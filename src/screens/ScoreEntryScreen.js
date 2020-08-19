@@ -15,14 +15,16 @@ import {
     AsyncStorage,
 } from 'react-native';
 // Custom imports
+import FoundGrid from '../components/FoundGrid';
 import PopUpModalTemplate from '../components/PopUpModalTemplate';
 import QuitEntryModal from '../components/QuitEntryModal';
+import PairingModal from '../components/PairingModal';
+
 import styles from '../common/styles';
 import {
     img_home,
     img_scorebg,
 } from '../common/assets';
-import FoundGrid from '../components/FoundGrid';
 
  export default class ScoreEntryScreen extends Component
  {
@@ -32,9 +34,17 @@ import FoundGrid from '../components/FoundGrid';
         super(props);
         this.state = {
             quitEntryModalVisible: false,
+            pairingModalVisible: false,
+            letter: null,
+            word: null,
         };
         this.onQuitEntryModalClose = this.onQuitEntryModalClose.bind(this);
         this.onQuitEntryModalConfirm = this.onQuitEntryModalConfirm.bind(this);
+
+        this.showPairingModal = this.showPairingModal.bind(this);
+        this.onPairingModalClose = this.onPairingModalClose.bind(this);
+
+        this.updateSelectedPairing = this.updateSelectedPairing.bind(this);
         
     }
     onQuitEntryModalClose()
@@ -52,6 +62,28 @@ import FoundGrid from '../components/FoundGrid';
         await AsyncStorage.removeItem("SAVEGAME");
         this.props.navigation.navigate("Home");
     }
+
+    showPairingModal()
+    {
+
+    }
+
+    onPairingModalClose()
+    {
+        this.setState({
+            pairingModalVisible: false,
+        });
+    }
+
+    updateSelectedPairing(letter, word)
+    {
+        this.setState({
+            letter: letter,
+            word: word,
+            pairingModalVisible: true,
+        });
+    }
+
     componentDidMount()
     {
         this.props.navigation.setOptions({
@@ -126,12 +158,6 @@ import FoundGrid from '../components/FoundGrid';
         return(
             <View style={styles.entryScreen}>
               <ImageBackground defaultSource={img_scorebg} style={{width: "100%", height: "100%"}}>
-                <PopUpModalTemplate
-                    visible={this.state.quitEntryModalVisible}
-                    onClose={this.onQuitEntryModalClose}
-                    onConfirm={this.onQuitEntryModalConfirm}
-                    modalContent={<QuitEntryModal />}
-                ></PopUpModalTemplate>
                 <Text style={styles.entryText}>Your Score: {this.props.route.params.score}</Text>
                 <TextInput
                   style={styles.entryInput}
@@ -145,8 +171,21 @@ import FoundGrid from '../components/FoundGrid';
                   }
                 />
                 <Text style={styles.entryText}>Here are the items you found this game:</Text>
-                <FoundGrid pairings={this.props.route.params.foundList} />
+                <FoundGrid pairings={this.props.route.params.foundList} updateSelectedPairing={this.updateSelectedPairing} />
               </ImageBackground>
+              {/* Modals */}
+              <PopUpModalTemplate
+                    visible={this.state.quitEntryModalVisible}
+                    onClose={this.onQuitEntryModalClose}
+                    onConfirm={this.onQuitEntryModalConfirm}
+                    modalContent={<QuitEntryModal />}
+              />
+
+                <PopUpModalTemplate
+                    visible={this.state.pairingModalVisible}
+                    onClose={this.onPairingModalClose}
+                    modalContent={<PairingModal letter={this.state.letter} word={this.state.word}/>}
+                />
             </View>
           );
     }
