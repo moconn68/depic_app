@@ -41,15 +41,13 @@ export default class QuitEntryModal extends Component
 
                 <Image
                     source={img_quitEntry}
-                    width={modalWidth}
-                    height={modalHeight}
                     style={{
                         resizeMode: "contain",
-                        flex: 1,  
+                        flex: 0.8,  
                     }}
                 >
                 </Image>
-                <Text style={{fontSize:24, fontFamily:"Schramberg", textAlign: "center"}}>Are you sure you want to exit?{"\n"}If you quit now, your score will not be saved!</Text>
+                <Text style={{fontSize:24, fontFamily:"Schramberg", textAlign: "center"}}>Quit Without Saving?</Text>
 
             </View>
         )

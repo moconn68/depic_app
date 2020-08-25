@@ -29,6 +29,7 @@
     img_flip,
     
  } from '../common/assets';
+ import LoadingModal from '../components/LoadingModal';
  import PopUpModalTemplate from '../components/PopUpModalTemplate';
  import QuitGameModal from '../components/QuitGameModal';
  import IncorrectModal from '../components/IncorrectModal';
@@ -253,7 +254,7 @@ const predIgnores = [
               marginRight: 5,
             }} />
           </View>
-          <View style={{position: 'absolute',
+          {/* <View style={{position: 'absolute',
                           top: "47%",
                           left: "47%",
                           zIndex: 1,
@@ -261,7 +262,7 @@ const predIgnores = [
                           borderRadius: 10,
                         }}>
             <ActivityIndicator size="large" color="black" animating={this.state.loading} />
-          </View>
+          </View> */}
 				    <View style={{ flex: 1 }}>
 				      <Camera style={{ flex: 1 }} type={this.state.type}
 								ref={ref =>{
@@ -409,6 +410,10 @@ const predIgnores = [
 				    </View>
 
             {/* MODALS */}
+            <PopUpModalTemplate
+              visible={this.state.loading}
+              modalContent={<LoadingModal />}
+            />
             <PopUpModalTemplate
               visible={this.state.quitGameModalVisible}
               modalContent=
