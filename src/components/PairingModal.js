@@ -12,8 +12,10 @@ export default class PairingModal extends Component
     constructor(props)
     {
         /**
-         * letter - char representing selected letter
-         * word - string representing word found associated with letter
+         * pairing{}:  
+         *  letter - char representing selected letter
+         *  word - string representing word found associated with letter
+         *  picture - image taken for associated pairing
          */
         super(props);
     }
@@ -21,9 +23,8 @@ export default class PairingModal extends Component
     render()
     {
         const dimensions = Dimensions.get('window');
-        let modalWidth = dimensions.width*0.8;
-        let modalHeight = dimensions.height*0.4;
-
+        let modalWidth = dimensions.width*0.9;
+        let modalHeight = dimensions.height*0.6;
         return(
             <View
                 style={{
@@ -38,8 +39,9 @@ export default class PairingModal extends Component
                     borderColor: 'black'
                 }}
             >
-                <Text style={{fontSize: 62, fontFamily: "Schramberg"}}>{this.props.letter}</Text>
-                <Text style={{fontSize: 28, fontFamily: "Schramberg", textAlign: "center",}}>{this.props.word}</Text>
+                <Text style={{fontSize: 62, fontFamily: "Schramberg"}}>{this.props.pairing.letter}</Text>
+                <Text style={{fontSize: 26, fontFamily: "Schramberg", textAlign: "center",}}>{this.props.pairing.word}</Text>
+                <Image source={this.props.pairing.picture} style={{flex: 1, resizeMode: "contain"}}/>
             </View>
         );
     }

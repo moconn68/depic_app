@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
         height: 1,
       },
       textShadowRadius: 2,
+      textAlign: "center",
     },
     entryInput: {
       fontFamily:'Arial Rounded MT Bold',

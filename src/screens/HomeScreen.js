@@ -14,6 +14,7 @@ import {
     Button,
     Text,
     Alert,
+    PushNotificationIOS,
 } from 'react-native';
 import Font, {loadAsync} from 'expo-font';
 // Custom imports
@@ -26,6 +27,9 @@ import {
     img_rules,
  } from '../common/assets';
 
+ import PopUpModalTemplate from '../components/PopUpModalTemplate';
+ import InstructionsModal from '../components/InstructionsModal';
+
 export default class HomeScreen extends Component
 {
     constructor(props)
@@ -33,7 +37,16 @@ export default class HomeScreen extends Component
         super(props);
         this.state = {
             loading: true,
+            instructionsModalVisible: false,
         }
+        this.onInstructionsModalClose = this.onInstructionsModalClose.bind(this);
+    }
+
+    onInstructionsModalClose()
+    {
+        this.setState({
+            instructionsModalVisible: false,
+        });
     }
     async componentDidMount()
     {
@@ -67,7 +80,8 @@ export default class HomeScreen extends Component
                             <Image source={img_play} style={styles.playButton} />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => {this.props.navigation.navigate("Rules");} }
+                            // onPress={() => {this.props.navigation.navigate("Rules");} }
+                            onPress={() => {this.setState({instructionsModalVisible: true})} }
                             >
                             <Image source={img_rules} style={styles.rulesButton} />
                         </TouchableOpacity>
@@ -78,6 +92,14 @@ export default class HomeScreen extends Component
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
+
+                {/* MODALS */}
+                <PopUpModalTemplate
+                    visible={this.state.instructionsModalVisible}
+                    modalContent={<InstructionsModal />}
+                    onClose={() => this.onInstructionsModalClose()}
+                />
+                    
 		    </View>
         );
     }

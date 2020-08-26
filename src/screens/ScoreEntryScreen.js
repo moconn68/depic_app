@@ -35,8 +35,7 @@ import {
         this.state = {
             quitEntryModalVisible: false,
             pairingModalVisible: false,
-            letter: null,
-            word: null,
+            currentPair: null,
         };
         this.onQuitEntryModalClose = this.onQuitEntryModalClose.bind(this);
         this.onQuitEntryModalConfirm = this.onQuitEntryModalConfirm.bind(this);
@@ -75,11 +74,14 @@ import {
         });
     }
 
-    updateSelectedPairing(letter, word)
+    updateSelectedPairing(letter, word, picture)
     {
         this.setState({
-            letter: letter,
-            word: word,
+            currentPair: {
+                letter: letter,
+                word: word,
+                picture: picture
+            },
             pairingModalVisible: true,
         });
     }
@@ -170,8 +172,12 @@ import {
                     }
                   }
                 />
-                <Text style={styles.entryText}>Here are the items you found this game:</Text>
-                <FoundGrid pairings={this.props.route.params.foundList} updateSelectedPairing={this.updateSelectedPairing} />
+                <Text style={styles.entryText}>Press and hold to see what you found:</Text>
+                <FoundGrid
+                    pairings={this.props.route.params.foundList}
+                    updateSelectedPairing={this.updateSelectedPairing}
+                    closePairingModal={this.onPairingModalClose}
+                />
               </ImageBackground>
               {/* Modals */}
               <PopUpModalTemplate
@@ -183,8 +189,8 @@ import {
 
                 <PopUpModalTemplate
                     visible={this.state.pairingModalVisible}
-                    onClose={this.onPairingModalClose}
-                    modalContent={<PairingModal letter={this.state.letter} word={this.state.word}/>}
+                    // onClose={this.onPairingModalClose}
+                    modalContent={<PairingModal pairing={this.state.currentPair} />}
                 />
             </View>
           );

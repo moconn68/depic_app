@@ -11,7 +11,8 @@ export const img_home = require('../../assets/art/home_icon.png');
 export const img_scorebg = require('../../assets/art/scoreboard_bg.png');
 export const img_highestScorebg = require('../../assets/art/highestscoreboard_bg.png');
 
-export const gif_loading = require('../../assets/art/loading.gif');
+export const gif_loading = require('../../assets/art/modals/loading.gif');
+export const gif_instructions = require('../../assets/art/modals/instructions.gif');
 // Modal images
 export const img_cancelModal = require('../../assets/art/modals/modal_cancel.png');
 export const img_confirmModal = require('../../assets/art/modals/modal_confirm.png');
