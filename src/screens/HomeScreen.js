@@ -11,7 +11,12 @@ import {
     ImageBackground,
     Image,
     TouchableOpacity,
+    Button,
+    Text,
+    Alert,
+    PushNotificationIOS,
 } from 'react-native';
+import Font, {loadAsync} from 'expo-font';
 // Custom imports
 import styles from '../common/styles';
 import { 
@@ -22,18 +27,48 @@ import {
     img_rules,
  } from '../common/assets';
 
+ import PopUpModalTemplate from '../components/PopUpModalTemplate';
+ import InstructionsModal from '../components/InstructionsModal';
+
 export default class HomeScreen extends Component
 {
-    componentDidMount()
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            loading: true,
+            instructionsModalVisible: false,
+        }
+        this.onInstructionsModalClose = this.onInstructionsModalClose.bind(this);
+    }
+
+    onInstructionsModalClose()
+    {
+        this.setState({
+            instructionsModalVisible: false,
+        });
+    }
+    async componentDidMount()
     {
         this.props.navigation.setOptions
         ({
             headerShown: false,
         });
+        
+        await loadAsync({
+            "Schramberg": require('../../assets/fonts/SchrambergSans.otf'),
+        });
+
+        this.setState({
+            loading: false,
+        });
     }
 
     render()
     {
+        if(this.state.loading){
+            return <></>;
+        }
         return(
             <View style={styles.container} >
                 <ImageBackground  defaultSource={img_background}  style={{width:'100%', height:'100%'}}>
@@ -45,7 +80,8 @@ export default class HomeScreen extends Component
                             <Image source={img_play} style={styles.playButton} />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => {this.props.navigation.navigate("Rules");} }
+                            // onPress={() => {this.props.navigation.navigate("Rules");} }
+                            onPress={() => {this.setState({instructionsModalVisible: true})} }
                             >
                             <Image source={img_rules} style={styles.rulesButton} />
                         </TouchableOpacity>
@@ -56,6 +92,14 @@ export default class HomeScreen extends Component
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
+
+                {/* MODALS */}
+                <PopUpModalTemplate
+                    visible={this.state.instructionsModalVisible}
+                    modalContent={<InstructionsModal />}
+                    onClose={() => this.onInstructionsModalClose()}
+                />
+                    
 		    </View>
         );
     }

@@ -24,14 +24,14 @@ const styles = StyleSheet.create({
       marginTop: -100,
       marginBottom: 100,
     },
-      titleText: {
-          fontSize: 42,
-          fontWeight: 'bold',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: 20,
-          fontFamily:'Arial Rounded MT Bold',
-      },
+    titleText: {
+      fontSize: 42,
+      fontWeight: 'bold',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: 20,
+      fontFamily:'Arial Rounded MT Bold',
+    },
     playButton: {
       width: 100,
       height: 100,
@@ -48,18 +48,18 @@ const styles = StyleSheet.create({
       height: 100,
       resizeMode: "contain",
     },
-      buttons: {
-          backgroundColor: 'orange',
-          borderRadius: 10,
-          margin: 4,
-          padding: 5,
-          borderColor: '#d19119',
-          borderWidth: 2,
-      },
-      buttonText: {
-          fontSize: 38,
-          fontFamily:'Arial Rounded MT Bold',
-      },
+    buttons: {
+      backgroundColor: 'orange',
+      borderRadius: 10,
+      margin: 4,
+      padding: 5,
+      borderColor: '#d19119',
+      borderWidth: 2,
+    },
+    buttonText: {
+      fontSize: 38,
+      fontFamily:'Arial Rounded MT Bold',
+    },
     rulesScreen: {
       alignItems: 'center',
     },
@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
   
     },
     cameraScoreBoardScoreText:{
-        fontSize: 42,
-        fontFamily:'Arial Rounded MT Bold',
+      fontSize: 42,
+      fontFamily:'Arial Rounded MT Bold',
       paddingRight: 10,
       textTransform: 'capitalize',
       color: '#EEF4BD',
@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
         height: 1,
       },
       textShadowRadius: 2,
+      textAlign: "center",
     },
     entryInput: {
       fontFamily:'Arial Rounded MT Bold',
@@ -208,6 +209,14 @@ const styles = StyleSheet.create({
       tintColor: 'gray',
       marginBottom: 10,
     },
+    popUpModalOuter: {
+      flex: 1,
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'rgba(1, 1, 1, 0.5)',
+    },
+
   });
 
   export default styles;

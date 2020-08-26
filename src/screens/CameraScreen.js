@@ -29,6 +29,12 @@
     img_flip,
     
  } from '../common/assets';
+ import LoadingModal from '../components/LoadingModal';
+ import PopUpModalTemplate from '../components/PopUpModalTemplate';
+ import QuitGameModal from '../components/QuitGameModal';
+ import IncorrectModal from '../components/IncorrectModal';
+ import NoSkipsModal from '../components/NoSkipsModal';
+ import FoundWordModal from '../components/FoundWordModal';
 
 // Configuration settings - dev only!
 const config = require('../../config');
@@ -54,7 +60,13 @@ const predIgnores = [
 			hasPermission: null,
 			// Back-view camera
 			type: Camera.Constants.Type.back,
-			loading: false,
+      loading: false,
+      foundWord: null,
+      quitGameModalVisible: false,
+      incorrectModalVisible: false,
+      correctModalVisible: false,
+      noSkipsModalVisible: false,
+      foundWordModalVisible: false,
       gameData: {
         // must be lowercase
         currentLetter: 'a',
@@ -69,7 +81,15 @@ const predIgnores = [
         // }
         foundList: [],
       },
-		};
+    };
+    // Method bindings
+    this.onQuitGameModalClose = this.onQuitGameModalClose.bind(this);
+    this.onSaveAndQuit = this.onSaveAndQuit.bind(this);
+    this.onEndGame = this.onEndGame.bind(this);
+    this.onIncorrectModalClose = this.onIncorrectModalClose.bind(this);
+    this.onNoSkipsModalClose = this.onNoSkipsModalClose.bind(this);
+    this.onFoundWordModalClose = this.onFoundWordModalClose.bind(this);
+    this.onWordFound = this.onWordFound.bind(this);
 	}
 
 	async componentDidMount(){
@@ -131,7 +151,59 @@ const predIgnores = [
 		} else {
       Alert.alert("Could not access camera! Make sure to give Depic camera permissions in Settings!");
     }
-	}
+  }
+  
+  onQuitGameModalClose()
+  {
+    this.setState({
+      quitGameModalVisible: false,
+    });
+  }
+
+  async onSaveAndQuit()
+  {
+    const gameData = JSON.stringify(this.state.gameData);
+    await AsyncStorage.setItem("SAVEGAME", gameData);
+    this.onQuitGameModalClose();
+    this.props.navigation.goBack();
+  }
+
+  async onEndGame()
+  {
+    // Clear saved game data
+    await AsyncStorage.removeItem("SAVEGAME");
+    this.onQuitGameModalClose();
+    this.props.navigation.navigate("ScoreEntry", {score: this.state.gameData.score, foundList: this.state.gameData.foundList});
+  }
+
+  onIncorrectModalClose()
+  {
+    this.setState({
+      incorrectModalVisible: false,
+    });
+  }
+
+  onNoSkipsModalClose()
+  {
+    this.setState({
+      noSkipsModalVisible: false,
+    });
+  }
+
+  onFoundWordModalClose()
+  {
+    this.setState({
+      foundWordModalVisible: false,
+    })
+  }
+
+  onWordFound(word)
+  {
+    this.setState({
+      foundWordModalVisible: true,
+      foundWord: word,
+    })
+  }
 
 	render(){
 
@@ -142,33 +214,9 @@ const predIgnores = [
             <TouchableOpacity
               onPress = {
                 () => {
-                  Alert.alert(
-                    "Quit Game",
-                    "Choose one option:",
-                    [
-                      {
-                        text: "Keep Playing",
-                        // Do nothing
-                      },
-                      {
-                        text: "Quit and Save Progress",
-                        onPress: async () => {
-                          const gameData = JSON.stringify(this.state.gameData);
-                          await AsyncStorage.setItem("SAVEGAME", gameData);
-                          Alert.alert("Game saved successfully.");
-                          this.props.navigation.goBack();
-                        },
-                      },
-                      {
-                        text: "End Game Now",
-                        onPress: async () => {
-                          // Clear saved game data
-                          await AsyncStorage.removeItem("SAVEGAME");
-                          this.props.navigation.navigate("ScoreEntry", {score: this.state.gameData.score, foundList: this.state.gameData.foundList})
-                        },
-                      },
-                    ],
-                  );
+                  this.setState({
+                    quitGameModalVisible: true,
+                  });
                 }
               }
               >
@@ -206,7 +254,7 @@ const predIgnores = [
               marginRight: 5,
             }} />
           </View>
-          <View style={{position: 'absolute',
+          {/* <View style={{position: 'absolute',
                           top: "47%",
                           left: "47%",
                           zIndex: 1,
@@ -214,7 +262,7 @@ const predIgnores = [
                           borderRadius: 10,
                         }}>
             <ActivityIndicator size="large" color="black" animating={this.state.loading} />
-          </View>
+          </View> */}
 				    <View style={{ flex: 1 }}>
 				      <Camera style={{ flex: 1 }} type={this.state.type}
 								ref={ref =>{
@@ -282,7 +330,8 @@ const predIgnores = [
 													if(predictions[i][0] == this.state.gameData.currentLetter){
 														found = true;
                             var upperCasedWord = predictions[i].charAt(0).toUpperCase() + predictions[i].slice(1);
-														Alert.alert(`You got it! Found word: ${upperCasedWord}`);
+                            this.onWordFound(upperCasedWord);
+														// Alert.alert(`You got it! Found word: ${upperCasedWord}`);
                             var dataTemp = this.state.gameData;
                             dataTemp.score = dataTemp.score + 100;
                             this.setState({gameData: dataTemp});
@@ -291,6 +340,7 @@ const predIgnores = [
                             let foundPair = {
                               letter: dataTemp.currentLetter,
                               word: upperCasedWord,
+                              picture: imageResized,
                             };
                             dataTemp.foundList.push(foundPair);
                             if (currentCharCode < 122){
@@ -312,7 +362,10 @@ const predIgnores = [
 													}
 												}
 												if(!found){
-													Alert.alert(`Sorry, we didn't find anything beginning with the letter ${this.state.gameData.currentLetter}. Try again!`);
+                          this.setState({
+                            incorrectModalVisible: true,
+                          });
+													// Alert.alert(`Sorry, we didn't find anything beginning with the letter ${this.state.gameData.currentLetter}. Try again!`);
 												}
                         // Save game state after each relevant update
                         await AsyncStorage.setItem("SAVEGAME", JSON.stringify(this.state.gameData))
@@ -328,7 +381,10 @@ const predIgnores = [
 				            }}
 				            onPress={async () => {
                         if(this.state.gameData.numSkips == 0){
-                          Alert.alert("You are out of skips!");
+                          this.setState({
+                            noSkipsModalVisible: true,
+                          });
+                          // Alert.alert("You are out of skips!");
                         } else {
                           let currentCharCode = this.state.gameData.currentLetter.charCodeAt(0);
                           if (currentCharCode < 122){
@@ -354,6 +410,38 @@ const predIgnores = [
 				      </Camera>
 				    </View>
 
+            {/* MODALS */}
+            <PopUpModalTemplate
+              visible={this.state.loading}
+              modalContent={<LoadingModal />}
+            />
+            <PopUpModalTemplate
+              visible={this.state.quitGameModalVisible}
+              modalContent=
+                {
+                  <QuitGameModal
+                    onSaveAndQuit={this.onSaveAndQuit}
+                    onEndGame={this.onEndGame}
+                    onKeepPlaying={this.onQuitGameModalClose}
+                  />
+                }
+              onClose={this.onQuitGameModalClose}
+            />
+            <PopUpModalTemplate
+              visible={this.state.incorrectModalVisible}
+              modalContent={<IncorrectModal />}
+              onClose={this.onIncorrectModalClose}
+            />
+            <PopUpModalTemplate
+              visible={this.state.noSkipsModalVisible}
+              modalContent={<NoSkipsModal />}
+              onClose={this.onNoSkipsModalClose}
+            />
+            <PopUpModalTemplate
+              visible={this.state.foundWordModalVisible}
+              modalContent={<FoundWordModal word={this.state.foundWord}/>}
+              onClose={this.onFoundWordModalClose}
+            />
           </>
 			);
 		}

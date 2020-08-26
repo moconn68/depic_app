@@ -9,22 +9,83 @@ import {
     View,
     Text,
     TouchableOpacity,
-    Alert,
     TextInput,
     ImageBackground,
     Image,
     AsyncStorage,
 } from 'react-native';
 // Custom imports
+import FoundGrid from '../components/FoundGrid';
+import PopUpModalTemplate from '../components/PopUpModalTemplate';
+import QuitEntryModal from '../components/QuitEntryModal';
+import PairingModal from '../components/PairingModal';
+
 import styles from '../common/styles';
 import {
     img_home,
     img_scorebg,
 } from '../common/assets';
-import FoundGrid from '../components/FoundGrid';
 
  export default class ScoreEntryScreen extends Component
  {
+
+    constructor(props)
+    {
+        super(props);
+        this.state = {
+            quitEntryModalVisible: false,
+            pairingModalVisible: false,
+            currentPair: null,
+        };
+        this.onQuitEntryModalClose = this.onQuitEntryModalClose.bind(this);
+        this.onQuitEntryModalConfirm = this.onQuitEntryModalConfirm.bind(this);
+
+        this.showPairingModal = this.showPairingModal.bind(this);
+        this.onPairingModalClose = this.onPairingModalClose.bind(this);
+
+        this.updateSelectedPairing = this.updateSelectedPairing.bind(this);
+        
+    }
+    onQuitEntryModalClose()
+    {
+        this.setState({
+            quitEntryModalVisible: false,
+        });
+    }
+
+    async onQuitEntryModalConfirm()
+    {
+        this.setState({
+            quitEntryModalVisible: false,
+        });
+        await AsyncStorage.removeItem("SAVEGAME");
+        this.props.navigation.navigate("Home");
+    }
+
+    showPairingModal()
+    {
+
+    }
+
+    onPairingModalClose()
+    {
+        this.setState({
+            pairingModalVisible: false,
+        });
+    }
+
+    updateSelectedPairing(letter, word, picture)
+    {
+        this.setState({
+            currentPair: {
+                letter: letter,
+                word: word,
+                picture: picture
+            },
+            pairingModalVisible: true,
+        });
+    }
+
     componentDidMount()
     {
         this.props.navigation.setOptions({
@@ -37,25 +98,9 @@ import FoundGrid from '../components/FoundGrid';
             headerLeft: () => (
                 <TouchableOpacity
                     onPress={
-                        () => {
-                        Alert.alert(
-                            "Are you sure you want to exit?",
-                            "If you quit now, your score will not be saved!",
-                            [
-                                {
-                                    text: "Yes",
-                                    onPress: async () => {
-                                    await AsyncStorage.removeItem("SAVEGAME");
-                                    this.props.navigation.navigate("Home");
-                                    },
-                                },
-                                {
-                                    text: "No",
-                                },
-                            ],
-            
-                        );
-                        }
+                        () => this.setState({
+                            quitEntryModalVisible: true,
+                        })
                     }
                     >
                     <Image source={img_home} style={styles.homeButton} />
@@ -127,9 +172,26 @@ import FoundGrid from '../components/FoundGrid';
                     }
                   }
                 />
-                <Text style={styles.entryText}>Here are the items you found this game:</Text>
-                <FoundGrid pairings={this.props.route.params.foundList} />
+                <Text style={styles.entryText}>Press and hold to see what you found:</Text>
+                <FoundGrid
+                    pairings={this.props.route.params.foundList}
+                    updateSelectedPairing={this.updateSelectedPairing}
+                    closePairingModal={this.onPairingModalClose}
+                />
               </ImageBackground>
+              {/* Modals */}
+              <PopUpModalTemplate
+                    visible={this.state.quitEntryModalVisible}
+                    onClose={this.onQuitEntryModalClose}
+                    onConfirm={this.onQuitEntryModalConfirm}
+                    modalContent={<QuitEntryModal />}
+              />
+
+                <PopUpModalTemplate
+                    visible={this.state.pairingModalVisible}
+                    // onClose={this.onPairingModalClose}
+                    modalContent={<PairingModal pairing={this.state.currentPair} />}
+                />
             </View>
           );
     }

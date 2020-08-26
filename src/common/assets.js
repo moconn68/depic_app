@@ -8,8 +8,22 @@ export const img_skip = require('../../assets/art/skip_icon.png');
 export const img_flip = require('../../assets/art/flip_camera.png');
 export const img_take_pic = require('../../assets/art/take_pic_icon.png');
 export const img_home = require('../../assets/art/home_icon.png');
-export const img_scorebg = require('../../assets/art/scoreboard_bg.png')
-export const img_highestScorebg = require('../../assets/art/highestscoreboard_bg.png')
+export const img_scorebg = require('../../assets/art/scoreboard_bg.png');
+export const img_highestScorebg = require('../../assets/art/highestscoreboard_bg.png');
+
+export const gif_loading = require('../../assets/art/modals/loading.gif');
+export const gif_instructions = require('../../assets/art/modals/instructions.gif');
+// Modal images
+export const img_cancelModal = require('../../assets/art/modals/modal_cancel.png');
+export const img_confirmModal = require('../../assets/art/modals/modal_confirm.png');
+export const img_incorrectModal = require('../../assets/art/modals/modal_tryAgain.png');
+export const img_quitGame = require('../../assets/art/modals/modal_quitGame.png');
+export const img_keepPlaying = require('../../assets/art/modals/modal_keepPlaying.png');
+export const img_saveGame = require('../../assets/art/modals/modal_saveGame.png');
+export const img_noSkips = require('../../assets/art/modals/modal_noSkips.png');
+export const img_foundWord = require('../../assets/art/modals/modal_foundWord.png');
+export const img_quitEntry = require('../../assets/art/modals/modal_quitEntry.png');
+// export const img_quitEntry = require('../../assets/art/modals/modal_quitEntry.png');
 // Assets re. letters of the alphabet
 var letterPath  = '../../assets/art/letters/';
 export const img_letters = {

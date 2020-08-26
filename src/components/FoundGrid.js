@@ -15,26 +15,31 @@
      FlatList,
      TouchableOpacity,
      Alert,
-     Dimensions,
+
  } from 'react-native';
 // Custom imports
 import styles from '../common/styles';
 import { img_letters } from '../common/assets';
+
 
 export default class FoundGrid extends Component
 {
     /**
      * 
      * @param {Object} props
-     * @param {Object[]} props.pairings - Pairings of found letters and words
+     * @param {Object[]} props.pairings - Pairings of found letters and words,k and associated picture
      * Pairing format:
      * {
      *    letter: "x",
      *    word: "word",
+     *    picture: reference to image
      * } 
+     * @param {Function} updateSelectedPairing: function which tracks player-selected letter-word pairing for modal display
+     * @param {Function} closePairingModal: hides the modal
      */
     constructor(props)
     {
+
         super(props);
         this.state = {
             gridDimensions: {
@@ -42,9 +47,11 @@ export default class FoundGrid extends Component
                 y: 0,
                 width: 100,
                 height: 100,
-            }
-        }
+            },
+        };
+
     }
+
 
     wasLetterFound(letter)
     {
@@ -100,6 +107,8 @@ export default class FoundGrid extends Component
                                         }
                                         viewDimensions={this.state.gridDimensions}
                                         letterFound={this.wasLetterFound(item)}
+                                        updateSelectedPairing={this.props.updateSelectedPairing}
+                                        closePairingModal={this.props.closePairingModal}
                                       />
                     }
                     keyExtractor={item => item}
@@ -132,7 +141,13 @@ class FoundGridItem extends Component
     {
         return(
             <TouchableOpacity
-                onPress={this.displayPairing}
+                // onPress={this.displayPairing}
+                onPressIn={() => this.props.updateSelectedPairing(this.props.pairing.letter.toUpperCase(), this.props.pairing.word, this.props.pairing.picture)}
+                onPressOut={
+                    () => {
+                        this.props.closePairingModal();
+                    }
+                }
                 disabled={!this.props.letterFound}
                 >
                 <Image
