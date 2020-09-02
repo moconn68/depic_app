@@ -1,4 +1,8 @@
 // Standard image and icon assets
+
+// What is shown if camera permissions are not obtained
+export const img_camera_permissions = require('../../assets/art/camera_permissions.png');
+
 export const img_background = require('../../assets/art/home_screen_bg.jpg');
 export const img_title = require('../../assets/art/depic_title.png');
 export const img_play = require('../../assets/art/play_icon.png');

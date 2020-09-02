@@ -16,9 +16,11 @@
     AsyncStorage,
     ActivityIndicator,
     Alert,
+    Linking,
  } from 'react-native';
  // Expo imports
  import { Camera } from 'expo-camera';
+ import * as Permissions from 'expo-permissions';
  import * as ImageManipulator from 'expo-image-manipulator'; 
  // Custom imports
  import styles from '../common/styles';
@@ -27,7 +29,7 @@
     img_skip,
     img_take_pic,
     img_flip,
-    
+    img_camera_permissions
  } from '../common/assets';
  import LoadingModal from '../components/LoadingModal';
  import PopUpModalTemplate from '../components/PopUpModalTemplate';
@@ -57,6 +59,7 @@ const predIgnores = [
     constructor(props){
 		super(props);
 		this.state = {
+      // boolean
 			hasPermission: null,
 			// Back-view camera
 			type: Camera.Constants.Type.back,
@@ -447,9 +450,38 @@ const predIgnores = [
 		}
 		else{
 			return(
-				<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-					<Text>Cannot access camera. Please make sure you have given Depic permission to access your phone's camera.</Text>
-				</View>
+				<View style={{flex: 1, backgroundColor: "#feeda4", alignItems: "center", justifyContent: "center" }}>
+                    <Image source={img_camera_permissions} style={{width: "100%", height: "33%", resizeMode: "cover", marginVertical: 30,}} />
+                    <Text style={{fontFamily: "Schramberg", fontSize: 22, textAlign: "center", marginVertical: 20,}}>This app requires camera access to play!</Text>
+                    <TouchableOpacity
+                        onPress={async () => {
+                            // first, prompt directly for access
+                            const { status } = await Camera.requestPermissionsAsync();
+                            if(status === "granted")
+                            {
+                                this.setState({
+                                    hasPermission: true,
+                                });
+                            }
+                            // if this fails, send user to settings to enable directly
+                            else
+                            {
+                                await Linking.openURL("app-settings:");
+                            }
+                        }}
+                        style={{
+                            backgroundColor: "#ec5b24",
+                            borderRadius: 5,
+                            borderWidth: 4,
+                            borderColor: "black",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            paddingVertical: 10,
+                        }}
+                    >
+                        <Text style={{fontFamily: "Schramberg", fontSize: 22, textAlign: "center", textAlignVertical: "center"}}>Enable Camera</Text>
+                    </TouchableOpacity>
+                </View>
 			);
 		}
 
