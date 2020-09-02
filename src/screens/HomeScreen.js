@@ -123,18 +123,25 @@ export default class HomeScreen extends Component
                             >
                             <Image source={img_play} style={styles.playButton} />
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            // onPress={() => {this.props.navigation.navigate("Rules");} }
-                            onPress={() => {this.setState({instructionsModalVisible: true})} }
-                            >
-                            <Image source={img_rules} style={styles.rulesButton} />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={ () => {this.props.navigation.navigate("Scores")} }
-                            >
-                            <Image source={img_scores} style={styles.scoresButton} />
-                        </TouchableOpacity>
+
+                        
                     </View>
+                    <View
+                            style={{flexDirection: "row", }}
+                        >
+                            <TouchableOpacity
+                                onPress={() => {this.setState({instructionsModalVisible: true})} }
+                                style={{position: "absolute", left: 10, bottom: 10}}
+                            >
+                                <Image source={img_rules} style={styles.rulesButton} />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={ () => {this.props.navigation.navigate("Scores")} }
+                                style={{position: "absolute", right: 10, bottom: 10}}
+                            >
+                                <Image source={img_scores} style={styles.scoresButton} />
+                            </TouchableOpacity>
+                        </View>
                 </ImageBackground>
 
                 {/* MODALS */}

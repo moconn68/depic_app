@@ -21,8 +21,10 @@ const styles = StyleSheet.create({
       width: 300,
       height: 200,
       resizeMode:"contain",
-      marginTop: -100,
-      marginBottom: 100,
+      position: "absolute",
+      top: 50,
+      // marginTop: -300,
+      // marginBottom: 100,
     },
     titleText: {
       fontSize: 42,
@@ -33,19 +35,19 @@ const styles = StyleSheet.create({
       fontFamily:'Arial Rounded MT Bold',
     },
     playButton: {
-      width: 100,
-      height: 100,
+      width: 130,
+      height: 130,
       resizeMode: "contain",
       marginBottom: 10,
     },
     rulesButton: {
-      width: 100,
-      height: 100,
+      width: 80,
+      height: 80,
       resizeMode: "contain",
     },
     scoresButton: {
-      width: 100,
-      height: 100,
+      width: 80,
+      height: 80,
       resizeMode: "contain",
     },
     buttons: {
