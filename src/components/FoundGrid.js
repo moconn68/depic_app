@@ -15,7 +15,6 @@
      FlatList,
      TouchableOpacity,
      Alert,
-
  } from 'react-native';
 // Custom imports
 import styles from '../common/styles';
@@ -146,6 +145,14 @@ class FoundGridItem extends Component
                 onPressOut={
                     () => {
                         this.props.closePairingModal();
+                    }
+                }
+                pressRetentionOffset={
+                    {
+                        bottom: 150,
+                        top: 150,
+                        left: 150,
+                        right: 150,
                     }
                 }
                 disabled={!this.props.letterFound}
