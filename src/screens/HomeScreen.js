@@ -65,8 +65,6 @@ export default class HomeScreen extends Component
 
         // check camera permissions
         const { status } = await Permissions.getAsync(Permissions.CAMERA);
-        console.log(status)
-
         this.setState({
             loading: false,
             cameraPermissions: status,
@@ -75,7 +73,6 @@ export default class HomeScreen extends Component
 
     render()
     {
-        console.log(this.state);
         if(this.state.loading){
             return <></>;
         }
