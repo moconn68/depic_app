@@ -168,7 +168,7 @@ const predIgnores = [
     const gameData = JSON.stringify(this.state.gameData);
     await AsyncStorage.setItem("SAVEGAME", gameData);
     this.onQuitGameModalClose();
-    this.props.navigation.goBack();
+    this.props.navigation.navigate("Home");
   }
 
   async onEndGame()

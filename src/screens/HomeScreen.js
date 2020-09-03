@@ -119,7 +119,8 @@ export default class HomeScreen extends Component
                     <View style={styles.container}>
                         <Image source={img_title} style={styles.titleImage}/>
                         <TouchableOpacity
-                            onPress={() => {this.props.navigation.navigate("Camera");} }
+                            // onPress={() => {this.props.navigation.navigate("Camera");} }
+                            onPress={() => this.props.navigation.navigate("PlayerSelect")}
                             >
                             <Image source={img_play} style={styles.playButton} />
                         </TouchableOpacity>

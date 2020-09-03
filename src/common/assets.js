@@ -15,6 +15,24 @@ export const img_home = require('../../assets/art/home_icon.png');
 export const img_scorebg = require('../../assets/art/scoreboard_bg.png');
 export const img_highestScorebg = require('../../assets/art/highestscoreboard_bg.png');
 
+// Player Selection assets
+export const img_playerSelectBg = require('../../assets/art/players/select_bg.png');
+export const img_btnNextPage = require('../../assets/art/players/button_next_page.png');
+export const img_btnPrevPage = require('../../assets/art/players/button_previous_page.png');
+export const img_p1 = require('../../assets/art/players/icon1.png');
+export const img_p2 = require('../../assets/art/players/icon2.png');
+export const img_p3 = require('../../assets/art/players/icon3.png');
+export const img_p4 = require('../../assets/art/players/icon4.png');
+export const img_p5 = require('../../assets/art/players/icon5.png');
+export const img_p6 = require('../../assets/art/players/icon6.png');
+export const img_p7 = require('../../assets/art/players/icon7.png');
+export const img_p8 = require('../../assets/art/players/icon8.png');
+export const img_p9 = require('../../assets/art/players/icon9.png');
+export const img_p10 = require('../../assets/art/players/icon10.png');
+export const img_p11 = require('../../assets/art/players/icon11.png');
+export const img_p12 = require('../../assets/art/players/icon12.png');
+
+
 export const gif_loading = require('../../assets/art/modals/loading.gif');
 export const gif_instructions = require('../../assets/art/modals/instructions.gif');
 // Modal images

@@ -9,6 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 // Custom screen imports
 import HomeScreen from '../screens/HomeScreen';
+import PlayerSelectScreen from '../screens/PlayerSelectScreen';
 import CameraScreen from '../screens/CameraScreen';
 import RulesScreen from '../screens/RulesScreen';
 import ScoreEntryScreen from '../screens/ScoreEntryScreen';
@@ -36,6 +37,7 @@ export default class HomeStackNavigator extends Component {
                     }}
                 >
 					<Stack.Screen name="Home" component={HomeScreen} />
+					<Stack.Screen name="PlayerSelect" component={PlayerSelectScreen} />
 					<Stack.Screen name="Camera" component={CameraScreen} />
                     <Stack.Screen name="Rules" component={RulesScreen} />
                     <Stack.Screen name="ScoreEntry" component={ScoreEntryScreen} />
