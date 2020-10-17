@@ -71,6 +71,7 @@ const predIgnores = [
       noSkipsModalVisible: false,
       foundWordModalVisible: false,
       gameData: {
+        player: this.props.route.params.player,
         // must be lowercase
         currentLetter: 'a',
         score: 0,
@@ -176,7 +177,7 @@ const predIgnores = [
     // Clear saved game data
     await AsyncStorage.removeItem("SAVEGAME");
     this.onQuitGameModalClose();
-    this.props.navigation.navigate("ScoreEntry", {score: this.state.gameData.score, foundList: this.state.gameData.foundList});
+    this.props.navigation.navigate("ScoreEntry", {score: this.state.gameData.score, foundList: this.state.gameData.foundList, player: this.state.gameData.player});
   }
 
   onIncorrectModalClose()

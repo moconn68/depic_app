@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       marginBottom: 20,
-      fontFamily:'Arial Rounded MT Bold',
+      fontFamily:'Schramberg',
+      textAlign: "center",
     },
     playButton: {
       width: 130,

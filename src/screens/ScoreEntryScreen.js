@@ -86,7 +86,7 @@ import {
         });
     }
 
-    componentDidMount()
+    async componentDidMount()
     {
         this.props.navigation.setOptions({
             title: "Congratulations!",
@@ -98,24 +98,27 @@ import {
             headerLeft: () => (
                 <TouchableOpacity
                     onPress={
-                        () => this.setState({
-                            quitEntryModalVisible: true,
-                        })
+                        // () => this.setState({
+                        //     quitEntryModalVisible: true,
+                        // })
+                        () => this.props.navigation.navigate("Scores")
                     }
                     >
                     <Image source={img_home} style={styles.homeButton} />
                 </TouchableOpacity>
             ),
             });
+            this.saveNewScore(this.props.route.params.player, this.props.route.params.score);
+            AsyncStorage.removeItem("SAVEGAME");
     }
-    async saveNewScore(name, score)
+    async saveNewScore(playerName, score)
     {
         // Max amount of scores to retain in high scores table
         const entryLimit = 10;
         var scores = JSON.parse(await AsyncStorage.getItem("SCORES"));
         var newScore = {
-        name: name,
-        score: parseInt(score),
+            player: playerName,
+            score: parseInt(score),
         };
 
         if(scores == null){
@@ -161,7 +164,7 @@ import {
             <View style={styles.entryScreen}>
               <ImageBackground defaultSource={img_scorebg} style={{width: "100%", height: "100%"}}>
                 <Text style={styles.entryText}>Your Score: {this.props.route.params.score}</Text>
-                <TextInput
+                {/* <TextInput
                   style={styles.entryInput}
                   maxLength={25}
                   placeholder="ENTER YOUR NAME HERE"
@@ -171,7 +174,7 @@ import {
                       this.props.navigation.navigate("Scores");
                     }
                   }
-                />
+                /> */}
                 <Text style={styles.entryText}>Press and hold to see what you found:</Text>
                 <FoundGrid
                     pairings={this.props.route.params.foundList}

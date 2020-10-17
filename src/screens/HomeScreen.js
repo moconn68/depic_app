@@ -14,6 +14,7 @@ import {
     Text,
     PushNotificationIOS,
     Linking,
+    AsyncStorage,
 } from 'react-native';
 import Font, {loadAsync} from 'expo-font';
 import * as Permissions from 'expo-permissions';
@@ -120,7 +121,23 @@ export default class HomeScreen extends Component
                         <Image source={img_title} style={styles.titleImage}/>
                         <TouchableOpacity
                             // onPress={() => {this.props.navigation.navigate("Camera");} }
-                            onPress={() => this.props.navigation.navigate("PlayerSelect")}
+                            onPress={
+                                async () => {
+                                    // await AsyncStorage.removeItem("PLAYER");
+                                    const gameData = await AsyncStorage.getItem("SAVEGAME");
+                                    console.log(gameData);
+                                    if(gameData == null)
+                                    {
+                                        this.props.navigation.navigate("PlayerSelect");
+                                    }
+                                    else
+                                    {
+                                        this.props.navigation.navigate("Camera", {
+                                            player: gameData.player,
+                                        });
+                                    }
+                                }
+                            }
                             >
                             <Image source={img_play} style={styles.playButton} />
                         </TouchableOpacity>

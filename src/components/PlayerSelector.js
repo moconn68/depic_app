@@ -15,68 +15,69 @@ import {
     img_home,
     img_btnNextPage,
     img_btnPrevPage,
-    img_p1,
-    img_p2,
-    img_p3,
-    img_p4,
-    img_p5,
-    img_p6,
-    img_p7,
-    img_p8,
-    img_p9,
-    img_p10,
-    img_p11,
-    img_p12,
+    player_icons,
+    // img_p1,
+    // img_p2,
+    // img_p3,
+    // img_p4,
+    // img_p5,
+    // img_p6,
+    // img_p7,
+    // img_p8,
+    // img_p9,
+    // img_p10,
+    // img_p11,
+    // img_p12,
 } from '../common/assets';
 
 const PLAYERS = [
     {
         name: "p1",
-        icon: img_p1,
+        icon: player_icons.p1,
     },
     {
         name: "p2",
-        icon: img_p2,
+        icon: player_icons.p2,
     },
     {
         name: "p3",
-        icon: img_p3,
+        icon: player_icons.p3,
     },
     {
         name: "p4",
-        icon: img_p4,
+        icon: player_icons.p4,
     },
     {
         name: "p5",
-        icon: img_p5,
+        icon: player_icons.p5,
     },
     {
         name: "p6",
-        icon: img_p6,
+        icon: player_icons.p6,
     },
     {
         name: "p7",
-        icon: img_p7,
+        icon: player_icons.p7,
     },
     {
         name: "p8",
-        icon: img_p8,
+        icon: player_icons.p8,
     },
     {
         name: "p9",
-        icon: img_p9,
+        icon: player_icons.p9,
     },
     {
         name: "p10",
-        icon: img_p10,
+        icon: player_icons.p10,
     },
     {
         name: "p11",
-        icon: img_p11,
+        icon: player_icons.p11,
     },
     {
         name: "p12",
-        icon: img_p12,
+        icon: player_icons.p12,
     },
     
 ];
@@ -143,8 +144,9 @@ export default class PlayerSelector extends Component
                                 onPress = {async () =>
                                     {
                                         // TODO - change this to pass info back to screen, & further pass as param to Camera (game screen)
-                                        await AsyncStorage.setItem("PLAYER", item.name);
-                                        this.props.onSelect();
+                                        // await AsyncStorage.setItem("PLAYER", item.name);
+                                        console.log("ITEM NAME: " + item.name);
+                                        this.props.onSelect(item.name);
                                     }
                                 }
                             >
@@ -162,7 +164,7 @@ export default class PlayerSelector extends Component
                     }
                     keyExtractor={item => item.name}
                     numColumns={2}
-                    scrollEnabled={true}
+                    scrollEnabled={false}
                     horizontal={false}
                     ref={(ref) => { this.flatListRef = ref; }}
                 />
