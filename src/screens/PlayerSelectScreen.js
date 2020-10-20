@@ -37,7 +37,6 @@ export default class PlayerSelectScreen extends Component
 
     onPlayerSelect(playerName)
     {
-        console.log("PLAYERNAME: " + playerName);
         this.props.navigation.navigate("Camera", {
             player: playerName,
         });

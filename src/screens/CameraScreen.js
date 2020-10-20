@@ -344,7 +344,7 @@ const predIgnores = [
                             let foundPair = {
                               letter: dataTemp.currentLetter,
                               word: upperCasedWord,
-                              picture: imageResized,
+                              picture: image,
                             };
                             dataTemp.foundList.push(foundPair);
                             if (currentCharCode < 122){
