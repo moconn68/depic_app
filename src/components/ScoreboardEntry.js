@@ -30,9 +30,9 @@ export default class ScoreboardEntry extends Component
                         borderRadius: 8,
                         borderColor: "#a9d179",
                         borderWidth: 3,
-                        height: dims.height/4,
-                        flex: 0.5,
-                        margin: 5
+                        height: (dims.height/4),
+                        flex: 1,
+                        margin: 5,
 
                     }
                 }
@@ -49,7 +49,7 @@ export default class ScoreboardEntry extends Component
                         }
                     }
                 >
-                    <Text style={{fontFamily: "Schramberg", fontSize: 48, flex: 0.5, textAlign: "center"}}>#{this.props.rank}</Text>
+                    <Text style={{fontFamily: "Schramberg", fontSize: 42, flex: 0.5, textAlign: "center"}}>#{this.props.rank}</Text>
                     <Image source={this.props.playerIcon} style={{width: "70%", height: "70%", resizeMode: "contain", flex: 0.5}}/>
                 </View>
 
@@ -63,7 +63,7 @@ export default class ScoreboardEntry extends Component
                         }
                     }
                 >
-                    <Text style={{fontFamily: "Schramberg", fontSize: 48, textAlign: "center",}}>{this.props.score}</Text>
+                    <Text style={{fontFamily: "Schramberg", fontSize: 42, textAlign: "center",}}>{this.props.score}</Text>
                 </View>
             </View>
         );

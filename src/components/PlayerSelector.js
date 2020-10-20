@@ -145,7 +145,6 @@ export default class PlayerSelector extends Component
                                     {
                                         // TODO - change this to pass info back to screen, & further pass as param to Camera (game screen)
                                         // await AsyncStorage.setItem("PLAYER", item.name);
-                                        console.log("ITEM NAME: " + item.name);
                                         this.props.onSelect(item.name);
                                     }
                                 }

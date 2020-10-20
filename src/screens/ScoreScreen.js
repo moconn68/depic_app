@@ -141,45 +141,13 @@
         return(
             <ImageBackground
                 source={img_scorebg}
-                style={{flex: 1}}
+                style={{flex: 1, padding: 20}}
             >
             <View style={{flex: 0}}>
-                {/* <ScrollView
-                    horizontal={true}
-                >
-                    {
-                        PLAYERS.map((item) => {
-                            return <TouchableOpacity
-                            style={
-                                {
-                                    width: dimensions.width/2,
-                                    height: dimensions.width/2,
-                                }
-                            }
-                            onPress = {async () =>
-                                {
-                                    await AsyncStorage.setItem("PLAYER", item.name);
-                                    this.props.onSelect();
-                                }
-                            }
-                        >
-                            <Image
-                                source={item.icon} 
-                                style={
-                                    {
-                                        width: "100%",
-                                        height: "100%",
-                                    }
-                                }
-                            />
-                        </TouchableOpacity>
-                        })
-                    }
-                </ScrollView> */}
                 <FlatList
-                    style={{height: dimensions.width + 50}}
+                    style={{height: dimensions.width + 51,}}
                     data={this.state.scores}
-                    renderItem={ ({item, index}) => <ScoreboardEntry rank={index+1} playerIcon={this.getPlayerIcon(item.player)} score={item.score}/>}
+                    renderItem={ ({item, index}) => <ScoreboardEntry rank={index+1} playerIcon={this.getPlayerIcon(item.player)} score={item.score} />}
                     keyExtractor={(item, index) => index.toString()}
                     numColumns={2}
                     scrollEnabled={false}
@@ -212,7 +180,6 @@
                             if(this.state.pageNumber > 0){
                                 let nextNum = this.state.pageNumber - 2;
                                 this.flatListRef.scrollToIndex({animated: false, index: nextNum});
-                                // this.flatListRef.scrollToOffset({animated: true, offset: 0})
                                 this.setState({
                                     pageNumber: nextNum
                                 })
@@ -242,7 +209,6 @@
                             if(this.state.pageNumber < PLAYERS.length/2-2){
                                 let nextNum = this.state.pageNumber + 2;
                                 this.flatListRef.scrollToIndex({animated: false, index: nextNum});
-                                // this.flatListRef.scrollToOffset({animated: true, offset: 0})
                                 this.setState({
                                     pageNumber: nextNum
                                 })
@@ -285,81 +251,4 @@
             );
          }
        }
-         
-
-
-
-
-
-
-
-
-    //  render()
-    //  {
-    //     if(this.state.scores != null){
-    //         // default - render high scores
-    //         // return(
-    //         //   <View style={styles.entryScreen}>
-    //         //     <ImageBackground defaultSource={img_highestScorebg} style={{width: "100%", height: "100%",alignItems: "center"}}>
-    //         //     <Text style={styles.titleText}>High Scores</Text>
-    //         //     <FlatList
-    //         //       data={this.state.scores}
-    //         //       renderItem={ ({ item, index }) => <Text style={styles.scoreRow}>{index+1}. {item.name}{'\t\t\t\t'}{item.score}</Text> }
-    //         //       keyExtractor={ (item, index) => index.toString() }
-    //         //     />
-    //         //     </ImageBackground>
-    //         //   </View>
-    //         // );
-    //           const dims = Dimensions.get('window');
-    //           console.log(dims);
-    //           return(
-    //           <ImageBackground
-    //             source={img_highestScorebg}
-    //             style={
-    //               {
-    //                 // width: "100%",
-    //                 // height: "100%",
-    //                 flex: 1,
-    //               }
-    //             }
-    //           >
-    //             <Text
-    //               style={styles.titleText}
-    //             >
-    //               High Scores
-    //             </Text>
-    //             <View
-    //               style={
-    //                 {
-    //                   // flex: 0.5,
-    //                   height: dims.height/2 + 20,
-    //                 }
-    //               }
-    //             >
-    //             <FlatList
-    //               data={this.state.scores}
-                  // renderItem={ ({item, index}) => <ScoreboardEntry rank={index+1} playerIcon={this.getPlayerIcon(item.player)} score={item.score}/>}
-    //               keyExtractor={ (item, index) => index.toString() }
-    //               numColumns={2}
-    //               horizontal={false}
-    //               scrollEnabled={false}
-    //               ref={(ref) => { this.flatListRef = ref; }}
-
-    //             />
-    //             </View>
-
-    //           </ImageBackground>
-    //           );
-    //       } else {
-            // // no scores yet!
-            // return(
-            //   <View style={styles.entryScreen}>
-            //      <ImageBackground defaultSource={img_highestScorebg} style={{width: "100%", height: "100%",alignItems: "center"}}>
-            //     <Text style={styles.titleText}>High Scores</Text>
-            //     <Text style={styles.noScores}>There are no scores yet. Play a game and get the first high score!</Text>
-            //     </ImageBackground>
-            //   </View>
-            // );
-    //       }
-    //  }
  }
