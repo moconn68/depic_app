@@ -98,6 +98,11 @@
      async componentDidMount()
      {
         this.props.navigation.setOptions({
+            title: "",
+            headerStyle: {
+                backgroundColor: "#faf0a7",
+                shadowColor: "transparent",
+            },
             gestureEnabled: false,
             headerLeft: () => (
               <TouchableOpacity
