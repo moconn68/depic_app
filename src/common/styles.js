@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     entryText: {
-      fontFamily:'Arial Rounded MT Bold',
+      fontFamily:'Schramberg',
       fontSize: 28,
       padding: 20,
       textShadowColor: 'white',
