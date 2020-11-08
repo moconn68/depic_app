@@ -155,8 +155,8 @@ const styles = StyleSheet.create({
       // marginLeft: "1%",
     },
     homeButton: {
-      width: 40,
-      height: 40,
+      width: 54,
+      height: 54,
       resizeMode: "contain",
       marginLeft: 15,
     },

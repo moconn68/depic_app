@@ -26,6 +26,8 @@ import {
     img_scorebg,
 } from '../common/assets';
 
+import * as playerInfoUtils from '../utils/PlayerInfoUtils';
+
  export default class ScoreEntryScreen extends Component
  {
 
@@ -89,11 +91,7 @@ import {
     async componentDidMount()
     {
         this.props.navigation.setOptions({
-            title: "Congratulations!",
-            headerTitleStyle: {
-                fontFamily: 'MarkerFelt-Thin',
-                fontSize: 28,
-            },
+            headerShown: false,
             gestureEnabled: false,
             headerLeft: () => (
                 <TouchableOpacity
@@ -162,8 +160,20 @@ import {
     {
         return(
             <View style={styles.entryScreen}>
-              <ImageBackground defaultSource={img_scorebg} style={{width: "100%", height: "100%"}}>
-                <Text style={styles.entryText}>Your Score: {this.props.route.params.score}</Text>
+              <ImageBackground defaultSource={img_scorebg} style={{width: "100%", height: "100%", alignItems:"center"}}>
+                <TouchableOpacity
+                        onPress={ () => {
+                            this.props.navigation.navigate("Home");
+                        }}
+                        style={{position: "absolute", top: 45, left: -10}}
+                        >
+                        <Image source={img_home} style={styles.homeButton} />
+                    </TouchableOpacity>
+                  <View style={{backgroundColor :"#a9d179", width: 200, height: 50, marginTop: 100, justifyContent: "center", borderRadius: 10}}>
+                    <Image source={playerInfoUtils.getPlayerIcon(this.props.route.params.player)} style={{width: 65, height: 65, top: 25, left: -15}}/>
+                    <Text style={[styles.entryText, {top: -35, marginLeft: 20}]}>{this.props.route.params.score}</Text>
+                  </View>
+                {/* <Text style={styles.entryText}>Your Score: {this.props.route.params.score}</Text> */}
                 {/* <TextInput
                   style={styles.entryInput}
                   maxLength={25}
@@ -175,7 +185,7 @@ import {
                     }
                   }
                 /> */}
-                <Text style={styles.entryText}>Press and hold to see what you found:</Text>
+                <Text style={styles.entryText}>Press and hold</Text>
                 <FoundGrid
                     pairings={this.props.route.params.foundList}
                     updateSelectedPairing={this.updateSelectedPairing}

@@ -70,7 +70,7 @@ export default class FoundGrid extends Component
     {
         const alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
         return(
-            <View style={{flex: 1, justifyContent: "space-evenly"}}
+            <View style={{flex: 1, justifyContent: "space-evenly", width: "100%"}}
                 onLayout={(event) =>
                     {
                         // Gets dimensions of the component for the case of different sized displays

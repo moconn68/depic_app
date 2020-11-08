@@ -26,63 +26,12 @@
  import {
     img_home,
     img_highestScorebg,
-    player_icons,
     img_btnNextPage,
     img_btnPrevPage,
     img_scorebg,
  } from '../common/assets';
 
- const PLAYERS = [
-  {
-      name: "p1",
-      icon: player_icons.p1,
-  },
-  {
-      name: "p2",
-      icon: player_icons.p2,
-  },
-  {
-      name: "p3",
-      icon: player_icons.p3,
-  },
-  {
-      name: "p4",
-      icon: player_icons.p4,
-  },
-  {
-      name: "p5",
-      icon: player_icons.p5,
-  },
-  {
-      name: "p6",
-      icon: player_icons.p6,
-  },
-  {
-      name: "p7",
-      icon: player_icons.p7,
-  },
-  {
-      name: "p8",
-      icon: player_icons.p8,
-  },
-  {
-      name: "p9",
-      icon: player_icons.p9,
-  },
-  {
-      name: "p10",
-      icon: player_icons.p10,
-  },
-  {
-      name: "p11",
-      icon: player_icons.p11,
-  },
-  {
-      name: "p12",
-      icon: player_icons.p12,
-  },
-  
-];
+ import * as playerInfoUtils from '../utils/PlayerInfoUtils';
 
  export default class ScoreScreen extends Component
  {
@@ -127,17 +76,6 @@
         }
      }
 
-     getPlayerIcon(playerName)
-     {
-       for(let player of PLAYERS)
-       {
-         if(player.name == playerName)
-         {
-           return player.icon;
-         }
-       }
-     }
-
      render()
      {
        if(this.state.scores != null)
@@ -152,7 +90,7 @@
                 <FlatList
                     style={{height: dimensions.width + 51,}}
                     data={this.state.scores}
-                    renderItem={ ({item, index}) => <ScoreboardEntry rank={index+1} playerIcon={this.getPlayerIcon(item.player)} score={item.score} />}
+                    renderItem={ ({item, index}) => <ScoreboardEntry rank={index+1} playerIcon={playerInfoUtils.getPlayerIcon(item.player)} score={item.score} />}
                     keyExtractor={(item, index) => index.toString()}
                     numColumns={2}
                     scrollEnabled={false}
@@ -168,7 +106,7 @@
                         }
                     }
                 >
-                    {this.state.pageNumber/2+1}/{PLAYERS.length/4}</Text>
+                    {this.state.pageNumber/2+1}/{playerInfoUtils.getNumCharacters()/4}</Text>
                 <View
                     style={
                         {
@@ -211,7 +149,7 @@
                 <TouchableOpacity
                     onPress={
                         () => {
-                            if(this.state.pageNumber < PLAYERS.length/2-2){
+                            if(this.state.pageNumber < playerInfoUtils.getNumCharacters()/2-2){
                                 let nextNum = this.state.pageNumber + 2;
                                 this.flatListRef.scrollToIndex({animated: false, index: nextNum});
                                 this.setState({
