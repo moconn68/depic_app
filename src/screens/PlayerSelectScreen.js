@@ -7,6 +7,15 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
+// AdMob
+import {
+    AdMobBanner,
+    AdMobInterstitial,
+    PublisherBanner,
+    AdMobRewarded,
+    setTestDeviceIDAsync,
+} from 'expo-ads-admob';
+
 import PlayerSelector from '../components/PlayerSelector';
 
 import {
@@ -26,6 +35,8 @@ import {
     img_p12,
 } from '../common/assets';
 import styles from '../common/styles';
+
+const config = require('../../config');
 
 export default class PlayerSelectScreen extends Component
 {
@@ -54,13 +65,13 @@ export default class PlayerSelectScreen extends Component
     render()
     {
         return(
+            <>
             <ImageBackground
                 source={img_playerSelectBg}
                 resizeMode="cover"
                 style={
                     {
-                        width: "100%",
-                        height: "100%",
+                        flex: 1
                     }
                 }
             >
@@ -90,7 +101,14 @@ export default class PlayerSelectScreen extends Component
                 <PlayerSelector 
                     onSelect={this.onPlayerSelect}
                 />
+
             </ImageBackground>
+            <AdMobBanner
+                adUnitID={config.admob.test.BANNER} // Test ID, Replace with your-admob-unit-id
+                servePersonalizedAds // true or false
+                onDidFailToReceiveAdWithError={this.bannerError}
+            />
+            </>
         );
     }
 }

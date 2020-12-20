@@ -18,6 +18,16 @@
     ImageBackground,
     Dimensions,
  } from 'react-native';
+
+ // AdMob
+ import {
+    AdMobBanner,
+    AdMobInterstitial,
+    PublisherBanner,
+    AdMobRewarded,
+    setTestDeviceIDAsync,
+  } from 'expo-ads-admob';
+
  // Custom imports
 
  import ScoreboardEntry from '../components/ScoreboardEntry';
@@ -32,6 +42,8 @@
  } from '../common/assets';
 
  import * as playerInfoUtils from '../utils/PlayerInfoUtils';
+
+ const config = require ('../../config');
 
  export default class ScoreScreen extends Component
  {
@@ -82,6 +94,7 @@
        {
         const dimensions = Dimensions.get("window");
         return(
+            <>
             <ImageBackground
                 source={img_scorebg}
                 style={{flex: 1, padding: 20}}
@@ -178,7 +191,15 @@
                 </View>
                 
             </View>
+
             </ImageBackground>
+            <AdMobBanner
+                adUnitID={config.admob.test.BANNER} // Test ID, Replace with your-admob-unit-id
+                servePersonalizedAds // true or false
+                onDidFailToReceiveAdWithError={this.bannerError}
+            />
+            </>
+            
            );
          }
          else

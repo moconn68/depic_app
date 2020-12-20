@@ -94,6 +94,7 @@ const predIgnores = [
     this.onNoSkipsModalClose = this.onNoSkipsModalClose.bind(this);
     this.onFoundWordModalClose = this.onFoundWordModalClose.bind(this);
     this.onWordFound = this.onWordFound.bind(this);
+    this.onAdRewardSkips = this.onAdRewardSkips.bind(this);
 	}
 
 	async componentDidMount(){
@@ -207,6 +208,16 @@ const predIgnores = [
       foundWordModalVisible: true,
       foundWord: word,
     })
+  }
+
+  onAdRewardSkips()
+  {
+    let tempData = this.state.gameData;
+    tempData.numSkips = 3;
+    this.setState({
+      gameData: tempData
+    });
+    this.onNoSkipsModalClose();
   }
 
 	render(){
@@ -438,7 +449,7 @@ const predIgnores = [
             />
             <PopUpModalTemplate
               visible={this.state.noSkipsModalVisible}
-              modalContent={<NoSkipsModal />}
+              modalContent={<NoSkipsModal onRewarded={this.onAdRewardSkips}/>}
               onClose={this.onNoSkipsModalClose}
             />
             <PopUpModalTemplate

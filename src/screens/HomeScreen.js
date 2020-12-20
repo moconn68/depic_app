@@ -18,6 +18,16 @@ import {
 } from 'react-native';
 import Font, {loadAsync} from 'expo-font';
 import * as Permissions from 'expo-permissions';
+import { Camera } from 'expo-camera';
+
+// AdMob functionality
+import {
+    AdMobBanner,
+    AdMobInterstitial,
+    PublisherBanner,
+    AdMobRewarded,
+    setTestDeviceIDAsync,
+} from 'expo-ads-admob';
 // Custom imports
 import styles from '../common/styles';
 import {
@@ -27,11 +37,13 @@ import {
     img_title,
     img_scores,
     img_rules,
- } from '../common/assets';
+} from '../common/assets';
 
- import PopUpModalTemplate from '../components/PopUpModalTemplate';
- import InstructionsModal from '../components/InstructionsModal';
-import { Camera } from 'expo-camera';
+import PopUpModalTemplate from '../components/PopUpModalTemplate';
+import InstructionsModal from '../components/InstructionsModal';
+
+const config = require('../../config');
+
 
 export default class HomeScreen extends Component
 {
@@ -160,6 +172,13 @@ export default class HomeScreen extends Component
                                 <Image source={img_scores} style={styles.scoresButton} />
                             </TouchableOpacity>
                         </View>
+
+                        <AdMobBanner
+                            adUnitID={config.admob.test.BANNER} // Test ID, Replace with your-admob-unit-id
+                            servePersonalizedAds // true or false
+                            onDidFailToReceiveAdWithError={this.bannerError}
+                        />
+
                 </ImageBackground>
 
                 {/* MODALS */}

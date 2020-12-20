@@ -13,7 +13,18 @@ import {
     ImageBackground,
     Image,
     AsyncStorage,
+    Alert
 } from 'react-native';
+
+// Google AdMob
+import {
+    AdMobBanner,
+    AdMobInterstitial,
+    PublisherBanner,
+    AdMobRewarded,
+    setTestDeviceIDAsync,
+  } from 'expo-ads-admob';
+
 // Custom imports
 import FoundGrid from '../components/FoundGrid';
 import PopUpModalTemplate from '../components/PopUpModalTemplate';
@@ -27,6 +38,9 @@ import {
 } from '../common/assets';
 
 import * as playerInfoUtils from '../utils/PlayerInfoUtils';
+
+const config = require('../../config');
+
 
  export default class ScoreEntryScreen extends Component
  {
@@ -92,20 +106,8 @@ import * as playerInfoUtils from '../utils/PlayerInfoUtils';
     {
         this.props.navigation.setOptions({
             headerShown: false,
-            gestureEnabled: false,
-            headerLeft: () => (
-                <TouchableOpacity
-                    onPress={
-                        // () => this.setState({
-                        //     quitEntryModalVisible: true,
-                        // })
-                        () => this.props.navigation.navigate("Scores")
-                    }
-                    >
-                    <Image source={img_home} style={styles.homeButton} />
-                </TouchableOpacity>
-            ),
-            });
+            gestureEnabled: false
+        });
             this.saveNewScore(this.props.route.params.player, this.props.route.params.score);
             AsyncStorage.removeItem("SAVEGAME");
     }
@@ -162,7 +164,10 @@ import * as playerInfoUtils from '../utils/PlayerInfoUtils';
             <View style={styles.entryScreen}>
               <ImageBackground defaultSource={img_scorebg} style={{width: "100%", height: "100%", alignItems:"center"}}>
                 <TouchableOpacity
-                        onPress={ () => {
+                        onPress={ async () => {
+                            await AdMobInterstitial.setAdUnitID(config.admob.test.INTERSTITIAL_VIDEO); // Test ID, Replace with your-admob-unit-id
+                            await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true});
+                            await AdMobInterstitial.showAdAsync();
                             this.props.navigation.navigate("Home");
                         }}
                         style={{position: "absolute", top: 45, left: -10}}
@@ -192,6 +197,7 @@ import * as playerInfoUtils from '../utils/PlayerInfoUtils';
                     closePairingModal={this.onPairingModalClose}
                 />
               </ImageBackground>
+
               {/* Modals */}
               <PopUpModalTemplate
                     visible={this.state.quitEntryModalVisible}

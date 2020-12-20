@@ -23,6 +23,9 @@
       "**/*"
     ],
     "ios": {
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-3119319897211086~5032202773"
+      },
       "supportsTablet": true
     }
   }
