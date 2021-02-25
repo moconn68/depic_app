@@ -35,6 +35,7 @@ import styles from '../common/styles';
 import {
     img_home,
     img_scorebg,
+    img_btnNextPage
 } from '../common/assets';
 
 import * as playerInfoUtils from '../utils/PlayerInfoUtils';
@@ -196,6 +197,17 @@ const config = require('../../config');
                     updateSelectedPairing={this.updateSelectedPairing}
                     closePairingModal={this.onPairingModalClose}
                 />
+                <TouchableOpacity
+                    onPress={ async () => {
+                        await AdMobInterstitial.setAdUnitID(config.admob.test.INTERSTITIAL_VIDEO); // Test ID, Replace with your-admob-unit-id
+                        await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true});
+                        await AdMobInterstitial.showAdAsync();
+                        this.props.navigation.navigate("Scores");
+                    }}
+                    style={{bottom: 50}}
+                >
+                    <Image source={img_btnNextPage} style={{width: 100, height: 100}}/>
+                </TouchableOpacity>
               </ImageBackground>
 
               {/* Modals */}

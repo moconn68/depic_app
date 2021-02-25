@@ -206,11 +206,11 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
     },
     foundLettersActive: {
-      marginBottom: 10,
+      paddingBottom: 10,
     },
     foundLettersInactive: {
       tintColor: 'gray',
-      marginBottom: 10,
+      marginBottom: 0,
     },
     popUpModalOuter: {
       flex: 1,
