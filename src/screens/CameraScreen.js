@@ -114,7 +114,7 @@ const predIgnores = [
       headerShown: false,
       gestureEnabled: false,
     });
-
+    
 	}
 
 	async objectDetection(image64){
