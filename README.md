@@ -1,6 +1,10 @@
 # Depic
 
-Depic is an educational mobile game for children ages 3-5. The goal of Depic is to help children learn the alphabit and improve object association skills through fun games that encourage interaction between the child, their environment, and their parents. This is accomplished through camera integration and object recognition capabilities.
+Depic is an educational mobile game for children ages 3-5. The goal of Depic is to help children learn the alphabit and improve object association skills through fun games that encourage interaction between the child, their environment, and their parents. This is accomplished through camera integration and object recognition capabilities. Although my partner Jade and I attempted to finish and launch the Depic app after graduating from Villanova University in 2020, a combination of factors (including the additional challenges related to heavy phone camera usage in an app for children) caused us to put the project on hold indefinitely. Hopefully one day we will be able to come back and drive this to completion!
+
+## Video Demo
+To view a video demonstration of how the app functions, check out this video demonstration: https://drive.google.com/file/d/1h-lrTPcCS8vcgs6OSesHvyoYR-DAQOQf/view?usp=sharing
+Please note that the UI has improved considerably since this demo was recorded! I will work on getting an updated recording as well as screenshots available.
 
 ## Getting Started
 
